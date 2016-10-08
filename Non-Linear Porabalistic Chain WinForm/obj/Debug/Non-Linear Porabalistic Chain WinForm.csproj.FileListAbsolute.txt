@@ -1,0 +1,13 @@
+c:\users\natalia_loginova1\documents\visual studio 2015\Projects\Non-Linear Porabalistic Chain WinForm\Non-Linear Porabalistic Chain WinForm\bin\Debug\Non-Linear Porabalistic Chain WinForm.exe.config
+c:\users\natalia_loginova1\documents\visual studio 2015\Projects\Non-Linear Porabalistic Chain WinForm\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csproj.ResolveComReference.cache
+c:\users\natalia_loginova1\documents\visual studio 2015\Projects\Non-Linear Porabalistic Chain WinForm\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.Form1.resources
+c:\users\natalia_loginova1\documents\visual studio 2015\Projects\Non-Linear Porabalistic Chain WinForm\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.Properties.Resources.resources
+c:\users\natalia_loginova1\documents\visual studio 2015\Projects\Non-Linear Porabalistic Chain WinForm\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csproj.GenerateResource.Cache
+c:\users\natalia_loginova1\documents\visual studio 2015\Projects\Non-Linear Porabalistic Chain WinForm\Non-Linear Porabalistic Chain WinForm\bin\Debug\Non-Linear Porabalistic Chain WinForm.exe
+c:\users\natalia_loginova1\documents\visual studio 2015\Projects\Non-Linear Porabalistic Chain WinForm\Non-Linear Porabalistic Chain WinForm\bin\Debug\Non-Linear Porabalistic Chain WinForm.pdb
+c:\users\natalia_loginova1\documents\visual studio 2015\Projects\Non-Linear Porabalistic Chain WinForm\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.exe
+c:\users\natalia_loginova1\documents\visual studio 2015\Projects\Non-Linear Porabalistic Chain WinForm\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.pdb
+C:\Matrix\Non-Linear-Probabilistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\Non-Linear Porabalistic Chain WinForm.exe.config
+C:\Matrix\Non-Linear-Probabilistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csproj.ResolveComReference.cache
+C:\Matrix\Non-Linear-Probabilistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.exe
+C:\Matrix\Non-Linear-Probabilistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.pdb
