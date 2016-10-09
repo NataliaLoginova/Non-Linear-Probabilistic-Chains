@@ -40,6 +40,8 @@
             this.button1.Text = "Открыть Ecxel";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            
             // 
             // Form1
             // 
@@ -47,9 +49,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(543, 366);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            this.Name = "Result";
+            this.Text = "Result";
+            
             this.ResumeLayout(false);
 
         }

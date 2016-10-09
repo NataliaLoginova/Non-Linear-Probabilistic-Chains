@@ -15,10 +15,22 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
     {
         public float x;
         public float y;
+
+        public MyPoint(float x, float y)
+        {
+            this.x = x;
+            this.y = y;
+        }
     }
     public partial class Form1 : Form
     {
-        private MyPoint[] point_arr = new MyPoint[5];
+        private List<MyPoint>[] points;
+        private bool flag = false;
+        private Pen[] pens = new Pen[]
+        { new Pen(Color.FromArgb(255, 0, 0, 0)), new Pen(Color.FromArgb(255, 255, 102, 102)), new Pen(Color.FromArgb(255, 0, 128, 255)),
+            new Pen(Color.FromArgb(255, 0, 204, 0)), new Pen(Color.FromArgb(255, 204, 0, 204)),
+            new Pen(Color.FromArgb(255, 204, 102, 0)), new Pen(Color.FromArgb(255, 51, 255, 255))
+        };
 
         public Form1()
         {
@@ -228,7 +240,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 P1t = 1 / (1 + P1t);
 
                 //Console.WriteLine(P1t);
-                MessageBox.Show(P1t.ToString());
+                //MessageBox.Show(P1t.ToString());
 
                 //Начальное состояние системы в терминах долей популяции Pk0
                 double[] arrPk0 = new double[columns];
@@ -247,10 +259,55 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                     arrPkt[j] = P1t * arrZk0[j] * System.Math.Pow(arrY[j], rows);
                 }
 
+                double[] arrP1 = new double[rows];
+
+                for (var i = 0; i < rows; i++)
+                {
+                    arrP1[i] = 0;
+
+                    for (var j = 1; j < columns; j++)
+                    {
+                        arrP1[i] = arrP1[i] + arrZk0[j] * System.Math.Pow(arrY[j], i);
+                    }
+
+                    arrP1[i] = 1 / (1 + arrP1[i]);
+
+                }
+
+                double[,] arrInterp = new double[rows, columns];
+
+                for (int j = 0; j < columns; j++)
+                {
+                    for (int i = 0; i < rows; i++)
+                    {
+                        if (j != 0)
+                        {
+                            arrInterp[i, j] = P1t * arrZk0[j] * System.Math.Pow(arrY[j], i);
+                        }
+                        else
+                        {
+                            arrInterp[i, j] = arrP1[i];
+                        }
+                    }
+                }
+
+                points = new List<MyPoint>[columns];
+                for (int i = 0; i < columns; i++)
+                {
+                    points[i] = new List<MyPoint>();
+                }
+
+                for (int j = 1; j < columns; j++)
+                {
+                    for (int i = 0; i < rows; i++)
+                    {
+                        points[j].Add(new MyPoint(50 + i * 6, 250 - (float)(arrInterp[i, j]) * 1000));
+                    }
+                }
+
                 // Console.WriteLine(arrPkt[1]);
-                MessageBox.Show("Done!");
-                //Console.WriteLine("Done!");
-                //Console.ReadKey();
+                flag = true;
+                Invalidate();
             }
         }
 
@@ -274,25 +331,35 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0));
-            //e.Graphics.DrawLine(pen, 20, 10, 40, 30);
-            //e.Graphics.DrawLine(pen, 40, 30, 300, 100);
-
-            point_arr[0].x = 50;
-            point_arr[0].y = 50;
-            point_arr[1].x = 60;
-            point_arr[1].y = 60;
-            point_arr[2].x = 70;
-            point_arr[2].y = 10;
-            point_arr[3].x = 100;
-            point_arr[3].y = 100;
-            point_arr[4].x = 150;
-            point_arr[4].y = 50;
-
-            for (int i = 0; i < 4; i++)
+            if (flag)
             {
-                e.Graphics.DrawLine(pen, point_arr[i].x, point_arr[i].y,
-                    point_arr[i + 1].x, point_arr[i + 1].y);
+
+                for (int i = 0; i < points.Length; i++)
+                {
+                    for (int j = 0; j < points[i].Count - 1; j++)
+                    {
+                        int penI = i % pens.Length;
+                        e.Graphics.DrawLine(pens[penI], points[i][j].x, points[i][j].y,
+                            points[i][j + 1].x, points[i][j + 1].y);
+                    }
+                }
+
+                float minx = float.MaxValue, maxx = float.MinValue;
+                float miny = float.MaxValue, maxy = float.MinValue;
+                for (int i = 0; i < points.Length; i++)
+                {
+                    for (int j = 0; j < points[i].Count; j++)
+                    {
+
+                        if (points[i][j].x < minx) minx = points[i][j].x;
+                        if (points[i][j].x > maxx) maxx = points[i][j].x;
+                        if (points[i][j].y < miny) miny = points[i][j].y;
+                        if (points[i][j].y > maxy) maxy = points[i][j].y;
+                    }
+                }
+
+                e.Graphics.DrawLine(pens[0], minx, maxy, maxx, maxy);
+                e.Graphics.DrawLine(pens[0], minx, miny, minx, maxy);
             }
         }
     }
