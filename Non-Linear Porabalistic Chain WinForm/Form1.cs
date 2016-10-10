@@ -364,12 +364,19 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
                 float maxlengthY = (maxy - miny) / 20;
 
-                for (int i = 1; i < maxlengthY; i++)
-                {
+                float minValue = -(maxy - 250) / 1000;
+                float maxValue = -(miny - 250) / 1000;
 
+                float countMin = minValue / 20;
+                float countMax = maxValue / 20;
+
+                for (int i = 1; i < maxlengthY+1; i++)
+                {
+                    float value = minValue + countMax * i;
+                  
                     e.Graphics.DrawLine(pens[0], minx - 5, maxy - 20 * i, minx + 5, maxy - 20 * i);
-                    e.Graphics.DrawString(i.ToString(),
-       new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)minx -10, (int)maxy - 20 * i));
+                    e.Graphics.DrawString(value.ToString("0.##"),
+       new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)minx - 15, (int)maxy - 20 * i));
                 }
 
                 float maxlengthX = (maxx - minx) / 20;
@@ -377,12 +384,12 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 for (int i = 1; i < maxlengthX; i++)
                 {
                     e.Graphics.DrawLine(pens[0], minx + 20 * i, maxy - 5, minx + 20 * i, maxy + 5);
-                    e.Graphics.DrawString(i.ToString(),
-       new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)minx + 20 * i, (int)maxy + 5));
+                    //             e.Graphics.DrawString(i.ToString(),
+                    //new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)minx + 20 * i, (int)maxy + 5));
 
                 }
 
-               
+
             }
         }
     }
