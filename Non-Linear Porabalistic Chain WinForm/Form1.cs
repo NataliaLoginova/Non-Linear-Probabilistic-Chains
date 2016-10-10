@@ -29,7 +29,8 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
         private Pen[] pens = new Pen[]
         { new Pen(Color.FromArgb(255, 0, 0, 0)), new Pen(Color.FromArgb(255, 255, 102, 102)), new Pen(Color.FromArgb(255, 0, 128, 255)),
             new Pen(Color.FromArgb(255, 0, 204, 0)), new Pen(Color.FromArgb(255, 204, 0, 204)),
-            new Pen(Color.FromArgb(255, 204, 102, 0)), new Pen(Color.FromArgb(255, 51, 255, 255))
+            new Pen(Color.FromArgb(255, 204, 102, 0)), new Pen(Color.FromArgb(255, 51, 255, 255)),
+                new Pen(Color.FromArgb(255, 0, 102, 0))
         };
 
         public Form1()
@@ -360,6 +361,28 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
                 e.Graphics.DrawLine(pens[0], minx, maxy, maxx, maxy);
                 e.Graphics.DrawLine(pens[0], minx, miny, minx, maxy);
+
+                float maxlengthY = (maxy - miny) / 20;
+
+                for (int i = 1; i < maxlengthY; i++)
+                {
+
+                    e.Graphics.DrawLine(pens[0], minx - 5, maxy - 20 * i, minx + 5, maxy - 20 * i);
+                    e.Graphics.DrawString(i.ToString(),
+       new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)minx -10, (int)maxy - 20 * i));
+                }
+
+                float maxlengthX = (maxx - minx) / 20;
+
+                for (int i = 1; i < maxlengthX; i++)
+                {
+                    e.Graphics.DrawLine(pens[0], minx + 20 * i, maxy - 5, minx + 20 * i, maxy + 5);
+                    e.Graphics.DrawString(i.ToString(),
+       new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)minx + 20 * i, (int)maxy + 5));
+
+                }
+
+               
             }
         }
     }
