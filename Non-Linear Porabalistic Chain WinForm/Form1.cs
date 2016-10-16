@@ -74,7 +74,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                         if (row == 1)
                         {
                             string country = (range.Cells[1, col + 1] as Excel.Range).Value;
-                            arrCountry[col-1] = country;
+                            arrCountry[col - 1] = country;
                         }
 
                         double num = (range.Cells[rex, col] as Excel.Range).Value2;
@@ -104,9 +104,6 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 {
                     arrYears[i] = (int)arrExel[i, 0];
                 }
-
-               
-                 MessageBox.Show(arrCountry[0].ToString());
 
                 //Вспомогательный массив для дальнейшего нахождения вероятностных цепочек
                 double[] sum = new double[rows];
@@ -409,6 +406,14 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                         e.Graphics.DrawLine(pens[penI], points[i][j].x, points[i][j].y,
                         points[i][j + 1].x, points[i][j + 1].y);
                     }
+                }
+
+                for (int i = 0; i < points.Length; i++)
+                {
+                    int penI = i % pens.Length + 1;
+                    e.Graphics.DrawLine(pens[penI], 535, 30 + 20 * i, 595, 30 + 20 * i);
+                    e.Graphics.DrawString(arrCountry[i].ToString(),
+           new Font("Arial", 8), System.Drawing.Brushes.Black, new Point(600, 25 + 20 * i));
                 }
 
                 float сoeffY = size[0][0].y / 12;
