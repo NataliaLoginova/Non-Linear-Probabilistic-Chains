@@ -39,6 +39,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
         private List<Size>[] size;
         private bool flag = false;
         private int[] arrYears;
+        private string[] arrCountry;
         private Pen[] pens = new Pen[]
         { new Pen(Color.FromArgb(255, 0, 0, 0)), new Pen(Color.FromArgb(255, 255, 102, 102)), new Pen(Color.FromArgb(255, 0, 128, 255)),
           new Pen(Color.FromArgb(255, 0, 204, 0)), new Pen(Color.FromArgb(255, 204, 0, 204)), new Pen(Color.FromArgb(255, 204, 102, 0)),
@@ -63,19 +64,29 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 #endregion
 
                 double[,] arrExel = new double[range.Rows.Count, range.Columns.Count];
+                arrCountry = new string[range.Columns.Count];
                 #region PROCESS
-                for (int row = 1; row <= range.Rows.Count; row++)
+                int rex = 2;
+                for (int row = 1; row <= range.Rows.Count - 1; row++)
                 {
                     for (int col = 1; col <= range.Columns.Count; col++)
                     {
-                        double num = (range.Cells[row, col] as Excel.Range).Value2;
+                        if (row == 1)
+                        {
+                            string country = (range.Cells[1, col + 1] as Excel.Range).Value;
+                            arrCountry[col-1] = country;
+                        }
+
+                        double num = (range.Cells[rex, col] as Excel.Range).Value2;
 
                         arrExel[row - 1, col - 1] = num;
+
                     }
+                    rex++;
                 }
                 #endregion
 
-                int rows = range.Rows.Count;
+                int rows = range.Rows.Count - 1;
                 int columns = range.Columns.Count - 1;
 
                 #region RELEASE
@@ -94,6 +105,9 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                     arrYears[i] = (int)arrExel[i, 0];
                 }
 
+               
+                 MessageBox.Show(arrCountry[0].ToString());
+
                 //Вспомогательный массив для дальнейшего нахождения вероятностных цепочек
                 double[] sum = new double[rows];
 
@@ -103,7 +117,6 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                     {
                         sum[i] += arrExel[i, j];
                     };
-
                 };
 
                 //Массив arrPi- Pkt, т. е. вероятности
@@ -408,13 +421,11 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                     new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point(0, 260 - 20 * i));
                 }
 
-             //   MessageBox.Show(arrYears.Length.ToString()+1);
-
-                double count = Math.Round((double)arrYears.Length/10);
-               // MessageBox.Show(count.ToString());
+                double count = Math.Round((double)arrYears.Length / 10);
 
                 float step = (float)(500 * count) / (float)arrYears.Length;
                 int index = 0;
+
                 for (int i = 1; i < 11; i++)
                 {
                     index = index + (int)count;
@@ -422,8 +433,8 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                     if (index < arrYears.Length)
                     {
                         e.Graphics.DrawLine(pens[0], 35 + step * i, 265, 35 + step * i, 275);
-                    e.Graphics.DrawString(arrYears[index].ToString(),
-        new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)(20 + step *i), 275));
+                        e.Graphics.DrawString(arrYears[index].ToString(),
+            new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)(20 + step * i), 275));
                     }
 
                 }
