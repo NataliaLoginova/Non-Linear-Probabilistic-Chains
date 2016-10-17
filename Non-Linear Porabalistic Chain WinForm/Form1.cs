@@ -260,17 +260,6 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
                 P10 = 1 / (1 + P10);
 
-                //P1t для интерполяции
-                double P1t = 0;
-
-                for (int j = 1; j < columns; j++)
-                {
-                    P1t = P1t + arrZk0[j] * System.Math.Pow(arrY[j], rows);
-                }
-
-                P1t = 1 / (1 + P1t);
-
-                //Console.WriteLine(P1t);
                 //MessageBox.Show(P1t.ToString());
 
                 //Начальное состояние системы в терминах долей популяции Pk0
@@ -282,26 +271,19 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 }
 
 
-                //Интерполяция Pkt
-                double[] arrPkt = new double[columns];
-
-                for (int j = 1; j < columns; j++)
-                {
-                    arrPkt[j] = P1t * arrZk0[j] * System.Math.Pow(arrY[j], rows);
-                }
-
-                double[] arrP1 = new double[rows];
+                //Интерполяция P1t
+                double[] arrP1t = new double[rows];
 
                 for (var i = 0; i < rows; i++)
                 {
-                    arrP1[i] = 0;
+                    arrP1t[i] = 0;
 
                     for (var j = 1; j < columns; j++)
                     {
-                        arrP1[i] = arrP1[i] + arrZk0[j] * System.Math.Pow(arrY[j], i);
+                        arrP1t[i] = arrP1t[i] + arrZk0[j] * System.Math.Pow(arrY[j], i);
                     }
 
-                    arrP1[i] = 1 / (1 + arrP1[i]);
+                    arrP1t[i] = 1 / (1 + arrP1t[i]);
 
                 }
 
@@ -313,11 +295,11 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                     {
                         if (j != 0)
                         {
-                            arrInterp[i, j] = P1t * arrZk0[j] * System.Math.Pow(arrY[j], i);
+                            arrInterp[i, j] = arrP1t[i] * arrZk0[j] * System.Math.Pow(arrY[j], i);
                         }
                         else
                         {
-                            arrInterp[i, j] = arrP1[i];
+                            arrInterp[i, j] = arrP1t[i];
                         }
                     }
                 }
@@ -350,7 +332,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
                 for (int i = 0; i < rows; i++)
                 {
-                    points[0].Add(new MyPoint(35 + i * сoeffX, 270 - (float)(arrP1[i]) * сoeffY));
+                    points[0].Add(new MyPoint(35 + i * сoeffX, 270 - (float)(arrP1t[i]) * сoeffY));
                 }
 
                 for (int j = 1; j < columns; j++)
