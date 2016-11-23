@@ -368,64 +368,72 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            if (flag)
+            if (!flag) return;
+
+            Image newImage = Image.FromFile("brand.png");
+            //e.Graphics.DrawImage(newImage, new Point(10, 10));
+
+            e.Graphics.DrawLine(pens[0], 35, 270, 535, 270);
+            e.Graphics.DrawLine(pens[0], 35, 20, 35, 270);
+
+            e.Graphics.DrawLine(pens[0], 535, 270, 525, 260);
+            e.Graphics.DrawLine(pens[0], 535, 270, 525, 280);
+
+            e.Graphics.DrawLine(pens[0], 35, 20, 25, 40);
+            e.Graphics.DrawLine(pens[0], 35, 20, 45, 40);
+
+            for (int i = 0; i < points.Length; i++)
             {
-
-                e.Graphics.DrawLine(pens[0], 35, 270, 535, 270);
-                e.Graphics.DrawLine(pens[0], 35, 20, 35, 270);
-
-                e.Graphics.DrawLine(pens[0], 535, 270, 525, 260);
-                e.Graphics.DrawLine(pens[0], 535, 270, 525, 280);
-
-                e.Graphics.DrawLine(pens[0], 35, 20, 25, 40);
-                e.Graphics.DrawLine(pens[0], 35, 20, 45, 40);
-
-                for (int i = 0; i < points.Length; i++)
+                for (int j = 0; j < points[i].Count - 1; j++)
                 {
-                    for (int j = 0; j < points[i].Count - 1; j++)
+                    if (false)
                     {
                         int penI = i % pens.Length + 1;
                         e.Graphics.DrawLine(pens[penI], points[i][j].x, points[i][j].y,
                         points[i][j + 1].x, points[i][j + 1].y);
                     }
-                }
-
-                for (int i = 0; i < points.Length; i++)
-                {
-                    int penI = i % pens.Length + 1;
-                    e.Graphics.DrawLine(pens[penI], 535, 30 + 20 * i, 595, 30 + 20 * i);
-                    e.Graphics.DrawString(arrCountry[i].ToString(),
-           new Font("Arial", 8), System.Drawing.Brushes.Black, new Point(600, 25 + 20 * i));
-                }
-
-                float сoeffY = size[0][0].y / 12;
-
-                for (int i = 1; i < 13; i++)
-                {
-                    double value = Math.Round(сoeffY * i, 3);
-                    e.Graphics.DrawLine(pens[0], 30, 270 - 20 * i, 40, 270 - 20 * i);
-                    e.Graphics.DrawString(value.ToString(),
-                    new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point(0, 260 - 20 * i));
-                }
-
-                double count = Math.Round((double)arrYears.Length / 10);
-
-                float step = (float)(500 * count) / (float)arrYears.Length;
-                int index = 0;
-
-                for (int i = 1; i < 11; i++)
-                {
-                    index = index + (int)count;
-
-                    if (index < arrYears.Length)
+                    else
                     {
-                        e.Graphics.DrawLine(pens[0], 35 + step * i, 265, 35 + step * i, 275);
-                        e.Graphics.DrawString(arrYears[index].ToString(),
-            new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)(20 + step * i), 275));
+                        int ex_x = (int)(points[i][j].x + points[i][j + 1].x) / 2;
+                        int ex_y = (int)(points[i][j].y + points[i][j + 1].y) / 2;
+                        e.Graphics.DrawImage(newImage, new Point(ex_x, ex_y));
                     }
-
                 }
+            }
 
+            for (int i = 0; i < points.Length; i++)
+            {
+                int penI = i % pens.Length + 1;
+                e.Graphics.DrawLine(pens[penI], 535, 30 + 20 * i, 595, 30 + 20 * i);
+                e.Graphics.DrawString(arrCountry[i].ToString(),
+       new Font("Arial", 8), System.Drawing.Brushes.Black, new Point(600, 25 + 20 * i));
+            }
+
+            float сoeffY = size[0][0].y / 12;
+
+            for (int i = 1; i < 13; i++)
+            {
+                double value = Math.Round(сoeffY * i, 3);
+                e.Graphics.DrawLine(pens[0], 30, 270 - 20 * i, 40, 270 - 20 * i);
+                e.Graphics.DrawString(value.ToString(),
+                new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point(0, 260 - 20 * i));
+            }
+
+            double count = Math.Round((double)arrYears.Length / 10);
+
+            float step = (float)(500 * count) / (float)arrYears.Length;
+            int index = 0;
+
+            for (int i = 1; i < 11; i++)
+            {
+                index = index + (int)count;
+
+                if (index < arrYears.Length)
+                {
+                    e.Graphics.DrawLine(pens[0], 35 + step * i, 265, 35 + step * i, 275);
+                    e.Graphics.DrawString(arrYears[index].ToString(),
+        new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)(20 + step * i), 275));
+                }
 
             }
         }
