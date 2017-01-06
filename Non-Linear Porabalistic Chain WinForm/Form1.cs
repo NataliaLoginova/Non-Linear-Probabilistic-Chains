@@ -272,9 +272,9 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
 
                 //Интерполяция P1t
-                double[] arrP1t = new double[rows];
+                double[] arrP1t = new double[rows+16];
 
-                for (var i = 0; i < rows; i++)
+                for (var i = 0; i < rows+16; i++)
                 {
                     arrP1t[i] = 0;
 
@@ -287,11 +287,13 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
                 }
 
-                double[,] arrInterp = new double[rows, columns];
+               
+
+                double[,] arrInterp = new double[rows+16, columns];
 
                 for (int j = 0; j < columns; j++)
                 {
-                    for (int i = 0; i < rows; i++)
+                    for (int i = 0; i < rows+16; i++)
                     {
                         if (j != 0)
                         {
@@ -304,6 +306,16 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                     }
                 }
 
+                double res = 0;
+
+                for (int j = 0; j < columns; j++)
+                {
+                    res = res + arrInterp[1, j];
+                    
+                }
+
+               // MessageBox.Show(res.ToString());
+
                 points = new List<MyPoint>[columns];
                 for (int i = 0; i < columns; i++)
                 {
@@ -312,7 +324,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
                 float miny = float.MaxValue, maxy = float.MinValue;
 
-                for (int i = 0; i < rows; i++)
+                for (int i = 0; i < rows+16; i++)
                 {
                     for (int j = 0; j < columns; j++)
                     {
@@ -327,17 +339,17 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 size[0].Add(new Size(miny, maxy));
 
 
-                float сoeffX = 500 / (float)rows;
+                float сoeffX = 500 / ((float)rows+16);
                 float сoeffY = 240 / maxy;
 
-                for (int i = 0; i < rows; i++)
+                for (int i = 0; i < rows+16; i++)
                 {
                     points[0].Add(new MyPoint(35 + i * сoeffX, 270 - (float)(arrP1t[i]) * сoeffY));
                 }
 
                 for (int j = 1; j < columns; j++)
                 {
-                    for (int i = 0; i < rows; i++)
+                    for (int i = 0; i < rows+16; i++)
                     {
                         points[j].Add(new MyPoint(35 + i * сoeffX, 270 - (float)(arrInterp[i, j] * сoeffY)));
                     }
@@ -370,11 +382,37 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
         {
             if (!flag) return;
 
-            Image newImage = Image.FromFile("brand.png");
+            Image newImageLine = Image.FromFile("lines.png");
+            Image newImageCricle = Image.FromFile("cricle2.png");
+            Image newImagePoints = Image.FromFile("points2.png");
+            Image newImageLinePoint = Image.FromFile("line-point2.png");
+            Image newImageCross = Image.FromFile("cross2.png");
+            Image newImageTriangle = Image.FromFile("triangle2.png");
+            Image newImageRhombus = Image.FromFile("rhombus2.png");
+            Image newImagePointLines = Image.FromFile("point-line2.png");
             //e.Graphics.DrawImage(newImage, new Point(10, 10));
 
+            Image[] arrImages = new Image[8];
+            arrImages[0] = newImageLine;
+            arrImages[1] = newImageCricle;
+            arrImages[2] = newImagePoints;
+            arrImages[3] = newImageLinePoint;
+            arrImages[4] = newImageCross;
+            arrImages[5] = newImageTriangle;
+            arrImages[6] = newImageRhombus;
+            arrImages[7] = newImagePointLines;
+
+
             e.Graphics.DrawLine(pens[0], 35, 270, 535, 270);
+            string nameOx = "Time (Year)";
+            e.Graphics.DrawString(nameOx.ToString(),
+           new Font("Arial", 10), System.Drawing.Brushes.Black, new Point(525, 280));
+            
             e.Graphics.DrawLine(pens[0], 35, 20, 35, 270);
+            string nameOy = "P (probability)";
+            e.Graphics.DrawString(nameOy.ToString(),
+           new Font("Arial", 10), System.Drawing.Brushes.Black, new Point(10, 8));
+
 
             e.Graphics.DrawLine(pens[0], 535, 270, 525, 260);
             e.Graphics.DrawLine(pens[0], 535, 270, 525, 280);
@@ -384,7 +422,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
             for (int i = 0; i < points.Length; i++)
             {
-                for (int j = 0; j < points[i].Count - 1; j++)
+                for (int j = 0; j < points[i].Count; j++)
                 {
                     if (false)
                     {
@@ -394,20 +432,14 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                     }
                     else
                     {
-                        int ex_x = (int)(points[i][j].x + points[i][j + 1].x) / 2;
-                        int ex_y = (int)(points[i][j].y + points[i][j + 1].y) / 2;
-                        e.Graphics.DrawImage(newImage, new Point(ex_x, ex_y));
+                     // int ex_x = (int)(points[i][j].x + points[i][j + 1].x) / 2;
+                      //  int ex_y = (int)(points[i][j].y + points[i][j + 1].y) / 2;
+                        e.Graphics.DrawImage(arrImages[i], new Point((int)points[i][j].x, (int)points[i][j].y));
                     }
                 }
             }
 
-            for (int i = 0; i < points.Length; i++)
-            {
-                int penI = i % pens.Length + 1;
-                e.Graphics.DrawLine(pens[penI], 535, 30 + 20 * i, 595, 30 + 20 * i);
-                e.Graphics.DrawString(arrCountry[i].ToString(),
-       new Font("Arial", 8), System.Drawing.Brushes.Black, new Point(600, 25 + 20 * i));
-            }
+            
 
             float сoeffY = size[0][0].y / 12;
 
@@ -419,22 +451,39 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point(0, 260 - 20 * i));
             }
 
-            double count = Math.Round((double)arrYears.Length / 10);
+            double count = Math.Round(((double)arrYears.Length+16)/ 10);
 
-            float step = (float)(500 * count) / (float)arrYears.Length;
+            float step = (float)(500 * count) / ((float)arrYears.Length+16);
             int index = 0;
-
+            int year = arrYears[arrYears.Length - 1];
             for (int i = 1; i < 11; i++)
             {
                 index = index + (int)count;
 
-                if (index < arrYears.Length)
+                if (index < arrYears.Length+16)
                 {
-                    e.Graphics.DrawLine(pens[0], 35 + step * i, 265, 35 + step * i, 275);
-                    e.Graphics.DrawString(arrYears[index].ToString(),
-        new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)(20 + step * i), 275));
+                    if (index < arrYears.Length)
+                    {
+                        e.Graphics.DrawLine(pens[0], 35 + (int)step * i, 265, 35 + (int)step * i, 275);
+                        e.Graphics.DrawString(arrYears[index].ToString(),
+            new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)(20 + (int)step * i), 275));
+                    }else
+                    {
+                        year = year + (int)count;
+                        e.Graphics.DrawLine(pens[0], 35 + (int)step * i, 265, 35 + (int)step * i, 275);
+                        e.Graphics.DrawString(year.ToString(),
+            new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)(20 + (int)step * i), 275));
+                    }
                 }
 
+            }
+
+            for (int i = 0; i < 8; i++)
+            {
+                int penI = i % pens.Length + 1;
+                e.Graphics.DrawImage(arrImages[i], new Point(560, 20 + 25 * i));
+                e.Graphics.DrawString(arrCountry[i].ToString(),
+       new Font("Arial", 8), System.Drawing.Brushes.Black, new Point(600, 25 + 25 * i));
             }
         }
     }

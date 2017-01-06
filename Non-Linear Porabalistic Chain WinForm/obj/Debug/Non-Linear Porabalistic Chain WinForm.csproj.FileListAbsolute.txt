@@ -27,3 +27,13 @@ C:\Probabilistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Line
 C:\Probabilistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.exe
 C:\Probabilistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.pdb
 C:\Probabilistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csprojResolveAssemblyReference.cache
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\Non-Linear Porabalistic Chain WinForm.exe.config
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csproj.ResolveComReference.cache
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.exe
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.pdb
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\Non-Linear Porabalistic Chain WinForm.exe
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\Non-Linear Porabalistic Chain WinForm.pdb
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csprojResolveAssemblyReference.cache
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.Form1.resources
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.Properties.Resources.resources
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csproj.GenerateResource.Cache
