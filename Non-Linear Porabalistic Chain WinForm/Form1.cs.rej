@@ -1,0 +1,14 @@
+diff a/Non-Linear Porabalistic Chain WinForm/Form1.cs b/Non-Linear Porabalistic Chain WinForm/Form1.cs	(rejected hunks)
+@@ -9,8 +9,12 @@
+ using System.Windows.Forms;
+ using Excel = Microsoft.Office.Interop.Excel;
+ 
++
++
+ namespace Non_Linear_Porabalistic_Chain_WinForm
+ {
++   
++
+     struct MyPoint
+     {
+         public float x;
