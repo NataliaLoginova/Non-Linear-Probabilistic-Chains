@@ -28,78 +28,79 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.button1 = new System.Windows.Forms.Button();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.jjjToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1.SuspendLayout();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.methodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logisticGrowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linearLogariphGrowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // menuStrip1
             // 
-            this.button1.Location = new System.Drawing.Point(871, 598);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 38);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Run";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.methodToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1050, 33);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // toolStrip1
+            // fileToolStripMenuItem
             // 
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1050, 31);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
+            this.fileToolStripMenuItem.Text = "Файл";
             // 
-            // toolStripDropDownButton1
+            // methodToolStripMenuItem
             // 
-            this.toolStripDropDownButton1.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.DoubleClickEnabled = true;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.jjjToolStripMenuItem,
-            this.ToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(42, 28);
-            this.toolStripDropDownButton1.Text = "Choose option";
+            this.methodToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.logisticGrowToolStripMenuItem,
+            this.linearLogariphGrowToolStripMenuItem});
+            this.methodToolStripMenuItem.Name = "methodToolStripMenuItem";
+            this.methodToolStripMenuItem.Size = new System.Drawing.Size(77, 29);
+            this.methodToolStripMenuItem.Text = "Метод";
             // 
-            // jjjToolStripMenuItem
+            // logisticGrowToolStripMenuItem
             // 
-            this.jjjToolStripMenuItem.Name = "jjjToolStripMenuItem";
-            this.jjjToolStripMenuItem.Size = new System.Drawing.Size(295, 30);
-            this.jjjToolStripMenuItem.Text = "logistic growth";
-            this.jjjToolStripMenuItem.Click += new System.EventHandler(this.jjjToolStripMenuItem_Click);
+            this.logisticGrowToolStripMenuItem.Name = "logisticGrowToolStripMenuItem";
+            this.logisticGrowToolStripMenuItem.Size = new System.Drawing.Size(365, 30);
+            this.logisticGrowToolStripMenuItem.Text = "Логистический рост";
+            this.logisticGrowToolStripMenuItem.Click += new System.EventHandler(this.logisticGrowToolStripMenuItem_Click);
             // 
-            // ToolStripMenuItem
+            // linearLogariphGrowToolStripMenuItem
             // 
-            this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-            this.ToolStripMenuItem.Size = new System.Drawing.Size(295, 30);
-            this.ToolStripMenuItem.Text = "linear logarithmic growth";
-            this.ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            this.linearLogariphGrowToolStripMenuItem.Name = "linearLogariphGrowToolStripMenuItem";
+            this.linearLogariphGrowToolStripMenuItem.Size = new System.Drawing.Size(365, 30);
+            this.linearLogariphGrowToolStripMenuItem.Text = "Линейно-логарифмический рост";
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(210, 30);
+            this.loadToolStripMenuItem.Text = "Загрузить...";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 684);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.menuStrip1);
+            this.IsMdiContainer = true;
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
             this.Text = "Non-linear Probabalistic Chain";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -107,12 +108,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-       
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem jjjToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem methodToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logisticGrowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linearLogariphGrowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
     }
 }
 

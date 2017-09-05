@@ -37,3 +37,6 @@ C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Deb
 C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.Form1.resources
 C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.Properties.Resources.resources
 C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csproj.GenerateResource.Cache
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\MathNet.Numerics.dll
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\MathNet.Numerics.xml
+C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.SolutionForm.resources
