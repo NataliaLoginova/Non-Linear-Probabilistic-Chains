@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using Application = Microsoft.Office.Interop.Excel.Application;
+
 
 namespace Non_Linear_Porabalistic_Chain_WinForm
 {
@@ -40,6 +42,8 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
         private bool flag = false;
         private int[] arrYears;
         private string[] arrCountry;
+        private Application application;
+        
         private Pen[] pens = new Pen[]
         { new Pen(Color.FromArgb(255, 0, 0, 0)), new Pen(Color.FromArgb(255, 255, 102, 102)), new Pen(Color.FromArgb(255, 0, 128, 255)),
           new Pen(Color.FromArgb(255, 0, 204, 0)), new Pen(Color.FromArgb(255, 204, 0, 204)), new Pen(Color.FromArgb(255, 204, 102, 0)),
@@ -52,8 +56,13 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
         }
 
         private void button1_Click(object sender, EventArgs e)
+
+
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+
+
+
+        OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 #region OPEN
@@ -291,6 +300,8 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
                 double[,] arrInterp = new double[rows+16, columns];
 
+                string res1 = " ";
+
                 for (int j = 0; j < columns; j++)
                 {
                     for (int i = 0; i < rows+16; i++)
@@ -303,18 +314,59 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                         {
                             arrInterp[i, j] = arrP1t[i];
                         }
+
+                        res1 = res1+" " + arrInterp[i, j];
                     }
+
+                    res1 = res1 + "\n" + "\n";
                 }
+
+                //const string template = "template.xlsm";
+
+                // Открываем книгу
+
+                Microsoft.Office.Interop.Excel.Application ObjExcel = new Microsoft.Office.Interop.Excel.Application();
+                Microsoft.Office.Interop.Excel.Workbook ObjWorkBook;
+                Microsoft.Office.Interop.Excel.Worksheet ObjWorkSheet;
+                //Книга.
+                ObjWorkBook = ObjExcel.Workbooks.Add(System.Reflection.Missing.Value);
+                //Таблица.
+                ObjWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)ObjWorkBook.Sheets[1];
+
+
+
+                //Значения [y - строка,x - столбец]
+
+                int key = 1;
+                int loop = 1;
+
+                for (int j = 0; j < columns; j++)
+                {
+                    for (int i = 0; i < rows + 16; i++)
+                    {
+                        ObjWorkSheet.Cells[key, loop] = arrInterp[i, j];
+
+                        key++;
+                    }
+                    key = 1;
+                    loop++;
+                }
+               
+
+                ObjExcel.Visible = true;
+                ObjExcel.UserControl = true;
+
+                MessageBox.Show(res1.ToString());
 
                 double res = 0;
 
                 for (int j = 0; j < columns; j++)
                 {
-                    res = res + arrInterp[1, j];
+                    res = res + ' ' + arrInterp[1, j];
                     
                 }
 
-               // MessageBox.Show(res.ToString());
+               MessageBox.Show(res.ToString());
 
                 points = new List<MyPoint>[columns];
                 for (int i = 0; i < columns; i++)
