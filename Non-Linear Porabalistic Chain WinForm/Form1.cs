@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using Application = Microsoft.Office.Interop.Excel.Application;
+using MathNet.Numerics.LinearAlgebra;
 
 namespace Non_Linear_Porabalistic_Chain_WinForm
 {
@@ -130,6 +132,99 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                         k++;
                     }
                 }
+
+                double[,] arrY = new double[rows, columns];
+
+
+                int m = rows - 1;
+
+                for (int j = 1; j < columns; j++)
+                {
+                    for (int i = 0; i < rows; i++)
+
+
+                    {
+
+                        arrY[i, j] = Math.Log(arrPi[m, j]) - Math.Log(arrPi[m, 0]);
+                        m--;
+
+                    }
+
+                    m = rows - 1;
+                }
+
+                double[,] arrX = new double[rows, columns];
+
+                int l = 0;
+                int t = rows;
+
+                for (int j = 0; j < columns; j++)
+                {
+
+                    for (int i = 0; i < rows; i++)
+                    {
+                        if (j == 0)
+                        {
+                            arrX[i, j] = 1;
+                        }
+                        else
+                        {
+                            arrX[i, j] = Math.Log(arrPi[t - 1, l]);
+                            t--;
+
+                        }
+                    }
+
+                    l++;
+                    t = rows;
+                }
+
+                double[,] arrXtransp = new double[columns, rows];
+
+                int a = 0;
+                int b = 0;
+
+                for (int j = 0; j < rows; j++)
+                {
+
+                    for (int i = 0; i < columns; i++)
+                    {
+
+
+                        arrXtransp[i, j] = arrX[b, a];
+
+                        a++;
+                    }
+                    a = 0;
+                    b++;
+                }
+
+
+
+                double[,] arrXMulti = new double[rows, rows];
+
+                double res = 0;
+
+                for (int j = 0; j < rows; j++)
+                {
+
+                    for (int i = 0; i < rows; i++)
+                    {
+                        res = 0;
+
+                        for (int n = 0; n < columns; n++)
+                        {
+
+                            res = res + arrX[i, n] * arrXtransp[n, j];
+
+                        }
+
+                        arrXMulti[i, j] = res;
+
+                    }
+                }
+
+                /*
 
                 //Массив arrZ-Zkt=Pkt/P1t. Фиксируем скорость прироста 
                 //по отношению к первой стране
@@ -312,9 +407,9 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 {
                     res = res + arrInterp[1, j];
                     
-                }
+                }*/
 
-               // MessageBox.Show(res.ToString());
+                // MessageBox.Show(res.ToString());
 
                 points = new List<MyPoint>[columns];
                 for (int i = 0; i < columns; i++)
