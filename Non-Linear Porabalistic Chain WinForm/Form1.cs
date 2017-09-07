@@ -356,7 +356,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 ObjExcel.Visible = true;
                 ObjExcel.UserControl = true;
 
-                MessageBox.Show(res1.ToString());
+               // MessageBox.Show(res1.ToString());
 
                 double res = 0;
 
@@ -366,7 +366,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                     
                 }
 
-               MessageBox.Show(res.ToString());
+             //  MessageBox.Show(res.ToString());
 
                 points = new List<MyPoint>[columns];
                 for (int i = 0; i < columns; i++)
