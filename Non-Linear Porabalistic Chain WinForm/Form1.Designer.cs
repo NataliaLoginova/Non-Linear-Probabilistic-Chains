@@ -30,10 +30,10 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.methodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logisticGrowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linearLogariphGrowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +57,13 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
             this.fileToolStripMenuItem.Text = "Файл";
             // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.loadToolStripMenuItem.Text = "Загрузить...";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
             // methodToolStripMenuItem
             // 
             this.methodToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -78,13 +85,7 @@
             this.linearLogariphGrowToolStripMenuItem.Name = "linearLogariphGrowToolStripMenuItem";
             this.linearLogariphGrowToolStripMenuItem.Size = new System.Drawing.Size(365, 30);
             this.linearLogariphGrowToolStripMenuItem.Text = "Линейно-логарифмический рост";
-            // 
-            // loadToolStripMenuItem
-            // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(210, 30);
-            this.loadToolStripMenuItem.Text = "Загрузить...";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            this.linearLogariphGrowToolStripMenuItem.Click += new System.EventHandler(this.linearLogariphGrowToolStripMenuItem_Click);
             // 
             // Form1
             // 
