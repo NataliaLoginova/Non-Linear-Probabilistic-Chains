@@ -40,3 +40,17 @@ C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Deb
 C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\MathNet.Numerics.dll
 C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\MathNet.Numerics.xml
 C:\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.SolutionForm.resources
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csprojResolveAssemblyReference.cache
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csproj.ResolveComReference.cache
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.Form1.resources
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.Properties.Resources.resources
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non_Linear_Porabalistic_Chain_WinForm.SolutionForm.resources
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csproj.GenerateResource.Cache
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.csproj.CoreCompileInputs.cache
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.exe
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\obj\Debug\Non-Linear Porabalistic Chain WinForm.pdb
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\Non-Linear Porabalistic Chain WinForm.exe.config
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\Non-Linear Porabalistic Chain WinForm.exe
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\Non-Linear Porabalistic Chain WinForm.pdb
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\MathNet.Numerics.dll
+E:\WORKSPACE\Репетиторство\Ученики\Наталья Логинова\Non-Linear-Probabalistic-Chains\Non-Linear Porabalistic Chain WinForm\bin\Debug\MathNet.Numerics.xml

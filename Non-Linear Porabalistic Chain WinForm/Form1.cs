@@ -14,30 +14,6 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace Non_Linear_Porabalistic_Chain_WinForm
 {
-
-
-    struct MyPoint
-    {
-        public float x;
-        public float y;
-
-        public MyPoint(float x, float y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-    }
-    struct Size
-    {
-        public float x;
-        public float y;
-
-        public Size(float x, float y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-    }
     public partial class Form1 : Form
     {
         private double[,] initialData;
@@ -45,16 +21,6 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
         private string[] arrCountry;
         private int col;
         private int row;
-        private List<MyPoint>[] points;
-        private List<Size>[] size;
-        private bool flag = false;
-        private string option = "First";
-        private Pen[] pens = new Pen[]
-        { new Pen(Color.FromArgb(255, 0, 0, 0)), new Pen(Color.FromArgb(255, 255, 102, 102)), new Pen(Color.FromArgb(255, 0, 128, 255)),
-          new Pen(Color.FromArgb(255, 0, 204, 0)), new Pen(Color.FromArgb(255, 204, 0, 204)), new Pen(Color.FromArgb(255, 204, 102, 0)),
-           new Pen(Color.FromArgb(255, 51, 255, 255)), new Pen(Color.FromArgb(255, 0, 102, 0)), new Pen(Color.FromArgb(255, 218, 165, 32))
-        };
-
 
         public Form1()
         {
@@ -101,21 +67,6 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             workbook.Close(true, null, null);
             app.Quit();
         }
-
-
-        private void jjjToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            option = "First";
-
-        }
-
-        private void ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            option = "Second";
-
-
-        }
-
 
         private List<List<double>> LogisticPorabalisticChain()
         {
@@ -427,121 +378,6 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             }
         }
 
-
-
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            if (!flag) return;
-
-            Image newImageLine = Image.FromFile("lines.png");
-            Image newImageCricle = Image.FromFile("cricle.png");
-            Image newImagePoints = Image.FromFile("points.png");
-            Image newImageLinePoint = Image.FromFile("line-point.png");
-            Image newImageCross = Image.FromFile("cross.png");
-            Image newImageTriangle = Image.FromFile("triangle.png");
-            Image newImageRhombus = Image.FromFile("rhombus.png");
-            Image newImagePointLines = Image.FromFile("point-line.png");
-
-            Image[] arrImages = new Image[8];
-            arrImages[0] = newImageLine;
-            arrImages[1] = newImageCricle;
-            arrImages[2] = newImagePoints;
-            arrImages[3] = newImageLinePoint;
-            arrImages[4] = newImageCross;
-            arrImages[5] = newImageTriangle;
-            arrImages[6] = newImageRhombus;
-            arrImages[7] = newImagePointLines;
-
-
-            e.Graphics.DrawLine(pens[0], 35, 400, 535, 400);  //ось Ox
-            string nameOx = "Time (Year)";
-            e.Graphics.DrawString(nameOx.ToString(),
-           new Font("Arial", 10), System.Drawing.Brushes.Black, new Point(525, 410));
-
-            e.Graphics.DrawLine(pens[0], 35, 50, 35, 400); //oсь Oy
-            string nameOy = "P (probability)";
-            e.Graphics.DrawString(nameOy.ToString(),
-           new Font("Arial", 10), System.Drawing.Brushes.Black, new Point(10, 48));
-
-
-            e.Graphics.DrawLine(pens[0], 535, 400, 525, 390);//cтрелочка
-            e.Graphics.DrawLine(pens[0], 535, 400, 525, 410);
-
-            e.Graphics.DrawLine(pens[0], 35, 50, 25, 70); //стрелочка
-            e.Graphics.DrawLine(pens[0], 35, 50, 45, 70);
-
-            for (int i = 0; i < points.Length; i++)
-            {
-                for (int j = 0; j < points[i].Count; j++)
-                {
-
-                    e.Graphics.DrawImage(arrImages[i], new Point((int)points[i][j].x, (int)points[i][j].y));
-
-                }
-            }
-
-            float сoeffY = size[0][0].y / 12;
-
-            for (int i = 1; i < 13; i++)
-            {
-                double value = Math.Round(сoeffY * i, 3);
-                if (i == 11)
-                {
-                    e.Graphics.DrawString(value.ToString(),
-                new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point(0, 390 - 30 * i));
-
-                }
-                else
-                {
-                    e.Graphics.DrawLine(pens[0], 30, 400 - 30 * i, 40, 400 - 30 * i); //подписи для оси Oy
-                    e.Graphics.DrawString(value.ToString(),
-                    new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point(0, 390 - 30 * i));
-                }
-            }
-
-
-
-            double count = Math.Round(((double)arrYears.Length + 16) / 10);
-
-            float step = (float)(500 * count) / ((float)arrYears.Length + 16);
-            int index = 0;
-            int year = arrYears[arrYears.Length - 1];
-
-            //.Show(step.ToString());
-
-            for (int i = 1; i < 11; i++)
-            {
-                index = index + (int)count;
-
-                if (index < arrYears.Length + 16)
-                {
-                    if (index < arrYears.Length)
-                    {
-                        e.Graphics.DrawLine(pens[0], 35 + (int)step * i, 395, 35 + (int)step * i, 405); //подписи для оси Ох
-                        e.Graphics.DrawString(arrYears[index].ToString(),
-            new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)(20 + (int)step * i), 405));
-                    }
-                    else
-                    {
-                        year = year + (int)count;
-                        e.Graphics.DrawLine(pens[0], 35 + (int)step * i, 395, 35 + (int)step * i, 405);
-                        e.Graphics.DrawString(year.ToString(),
-            new Font("Arial", 10), System.Drawing.Brushes.Blue, new Point((int)(20 + (int)step * i), 405));
-                    }
-                }
-
-            }
-
-            for (int i = 0; i < 8; i++)
-            {
-                int penI = i % pens.Length + 1;
-                e.Graphics.DrawImage(arrImages[i], new Point(560, 20 + 25 * i)); //легенда
-                e.Graphics.DrawString(arrCountry[i].ToString(),
-       new Font("Arial", 8), System.Drawing.Brushes.Black, new Point(600, 15 + 25 * i));
-            }
-        }
-
         private void logisticGrowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (row == 0 || col == 0)
@@ -564,6 +400,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 LoadFromFile(ofd.FileName);
+                MessageBox.Show("Данные успешно загружены!");
             }
         }
 
@@ -574,7 +411,6 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
         private void linearLogariphGrowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             if (row == 0 || col == 0)
             {
                 MessageBox.Show("Empty excel");
