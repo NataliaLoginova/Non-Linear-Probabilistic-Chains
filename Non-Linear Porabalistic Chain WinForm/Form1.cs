@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using MathNet.Numerics.LinearAlgebra;
-
+using Application = Microsoft.Office.Interop.Excel.Application;
 
 
 namespace Non_Linear_Porabalistic_Chain_WinForm
@@ -301,30 +301,46 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
             }
 
-            double[,] arrX = new double[row, col];
-
-            int l = 0;
-            int t = row;
+            double[,] arrHelpX = new double[row, col];
+            double[,] arrX = new double[row, col+1];
 
             for (int j = 0; j < col; j++)
             {
 
                 for (int i = 0; i < row; i++)
                 {
+                        arrHelpX[i, j] = Math.Log(arrPi[i, j]);
+                 
+                }
+                
+            }
+
+            int l = 0;
+            int t = row-2;
+
+            
+            for (int i = 0; i < row-2; i++)
+            {
+                l = 0;
+                for (int j = 0; j < col; j++)
+                {
+                    
+
                     if (j == 0)
                     {
                         arrX[i, j] = 1;
+
                     }
+
                     else
                     {
-                        arrX[i, j] = Math.Log(arrPi[t - 1, l]);
-                        t--;
-
+                        arrX[i, j] = arrHelpX[t, l];
+                       
+                        l++;
                     }
                 }
-
-                l++;
-                t = row;
+                t--;
+         
             }
 
             Matrix<double> arrXtransp = Matrix<double>.Build.DenseOfArray(arrX);
@@ -340,8 +356,40 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             Matrix<double> arrResult = arrXMulti.Inverse() * arrXtransp * arry;
 
 
+
+
             double[,] tmpResult = arrResult.ToArray();
-            
+
+
+            Microsoft.Office.Interop.Excel.Application ObjExcel = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel.Workbook ObjWorkBook;
+            Microsoft.Office.Interop.Excel.Worksheet ObjWorkSheet;
+            //Книга.
+            ObjWorkBook = ObjExcel.Workbooks.Add(System.Reflection.Missing.Value);
+            //Таблица.
+            ObjWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)ObjWorkBook.Sheets[1];
+
+            //Значения [y - строка,x - столбец]
+            int key = 1;
+            int loop = 1;
+
+            for (int j = 0; j < arrResult.ColumnCount; j++)
+            {
+                for (int i = 0; i < arrResult.RowCount; i++)
+                {
+                    ObjWorkSheet.Cells[key, loop] = tmpResult[i, j];
+
+                    key++;
+                }
+                key = 1;
+                loop++;
+            }
+
+
+            ObjExcel.Visible = true;
+            ObjExcel.UserControl = true;
+
+
 
             for (int i = 0; i < arrResult.RowCount; i++)
             {
