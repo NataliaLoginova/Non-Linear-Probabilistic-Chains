@@ -21,12 +21,15 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
         private string[] arrCountry;
         private int col;
         private int row;
+        private List<List<double>> result;
 
         public Form1()
         {
             InitializeComponent();
             col = 0;
             row = 0;
+            result = new List<List<double>>();
+            periodToolStripComboBox.SelectedIndex = 0;
 
         }
 
@@ -66,9 +69,10 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
             workbook.Close(true, null, null);
             app.Quit();
+            releaseObject(app);
         }
 
-        private List<List<double>> LogisticPorabalisticChain()
+        private List<List<double>> LogisticPorabalisticChain(int period)
         {
             List<List<double>> result = new List<List<double>>();
 
@@ -229,9 +233,9 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             }
 
             //Интерполяция P1t
-            double[] arrP1t = new double[row + 16];
+            double[] arrP1t = new double[row + period];
 
-            for (var i = 0; i < row + 16; i++)
+            for (var i = 0; i < row + period; i++)
             {
                 arrP1t[i] = 0;
 
@@ -249,7 +253,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
             for (int j = 0; j < col; j++)
             {
-                for (int i = 0; i < row + 16; i++)
+                for (int i = 0; i < row + period; i++)
                 {
                     if (j != 0)
                         tmp.Add(arrP1t[i] * arrZk0[j] * System.Math.Pow(arrY[j], i));
@@ -288,21 +292,46 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 for (int j = 0; j < col; j++)
                     arrPi[i, j] = initialData[i, j] / sum[i];
 
-            double[,] arrY = new double[row, col-1];
+            double[,] arrHelpY = new double[row-1, col-1];
+            double[,] arrY = new double[row-1, col - 1];
 
 
-              for (int i = 0; i < row; i++)
+            int m = 0;
+            int n = 1;
+
+              for (int i = 0; i < row-1; i++)
                 {
+
+                n = 1;
+                m++;
+                for (int j = 0; j < col-1; j++)
+                {
+                    arrHelpY[i, j] =  Math.Log(arrPi[m, n])- Math.Log(arrPi[m, 0]);
+                    n++;
+                }
+               
+
+            }
+
+            int p = row-1;
+            int k = col-1;
+
+            for (int i = 0; i < row - 1; i++)
+            {
+
+                k = 0;
+                p--;
                 for (int j = 0; j < col - 1; j++)
                 {
-                    arrY[i, j] =  Math.Log(arrPi[i, j+1])- Math.Log(arrPi[i, 0]);
-
+                    arrY[i, j] = arrHelpY[p, k];
+                    k++;
                 }
+
 
             }
 
             double[,] arrHelpX = new double[row, col];
-            double[,] arrX = new double[row, col+1];
+            double[,] arrX = new double[row-1, col+1];
 
             for (int j = 0; j < col; j++)
             {
@@ -319,10 +348,10 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             int t = row-2;
 
             
-            for (int i = 0; i < row-2; i++)
+            for (int i = 0; i < row-1; i++)
             {
                 l = 0;
-                for (int j = 0; j < col; j++)
+                for (int j = 0; j < col+1; j++)
                 {
                     
 
@@ -356,38 +385,103 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             Matrix<double> arrResult = arrXMulti.Inverse() * arrXtransp * arry;
 
 
+            double[,] arrA = arrResult.ToArray();
+            double[,] startValue = new double[1, col-1];
 
-
-            double[,] tmpResult = arrResult.ToArray();
-
-
-            Microsoft.Office.Interop.Excel.Application ObjExcel = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel.Workbook ObjWorkBook;
-            Microsoft.Office.Interop.Excel.Worksheet ObjWorkSheet;
-            //Книга.
-            ObjWorkBook = ObjExcel.Workbooks.Add(System.Reflection.Missing.Value);
-            //Таблица.
-            ObjWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)ObjWorkBook.Sheets[1];
-
-            //Значения [y - строка,x - столбец]
-            int key = 1;
-            int loop = 1;
-
-            for (int j = 0; j < arrResult.ColumnCount; j++)
+            for (int j = 0; j < col-1; j++)
             {
-                for (int i = 0; i < arrResult.RowCount; i++)
+                startValue[0, j] = Math.Exp(arrA[0, j]);
+                k = 0;
+                for (int i = 1; i < 9; i++)
                 {
-                    ObjWorkSheet.Cells[key, loop] = tmpResult[i, j];
-
-                    key++;
+                    startValue[0, j] = startValue[0, j] * Math.Pow(arrPi[0,k], arrA[i, j]);
+                    k++;
                 }
-                key = 1;
-                loop++;
+
             }
 
+            double sumStart = 0;
 
-            ObjExcel.Visible = true;
-            ObjExcel.UserControl = true;
+            for (int h = 0; h < 7; h++)
+            {
+
+                sumStart = sumStart + startValue[0, h];
+
+            }
+
+            sumStart = 1 / (1 + sumStart);
+
+
+            double[,] tmpResult = new double[row, col];
+            double[,] helpResult = new double[1, col];
+
+
+            for (int i = 0; i < row; i++)
+            {
+                if (i == 0)
+                {
+                    int q = 0;
+                    for (int j = 0; j < col; j++)
+                    {
+
+                        
+                        if (j == 0)
+                        {
+                            
+
+                            tmpResult[i, 0] = sumStart;
+
+                        }
+                        else
+                        {
+                            tmpResult[i, j] = sumStart * startValue[i, q];
+                            q++;
+                        }
+
+                    }
+                }
+                else
+                {
+
+                    for (int j = 0; j < col-1; j++)
+                    {
+                       helpResult[0, j] = Math.Exp(arrA[0, j]);
+                        k = 0;
+
+                        for (int z = 1; z < 9; z++)
+                        {
+                            helpResult[0, j] = helpResult[0, j] * Math.Pow(tmpResult[i-1, k], arrA[z, j]);
+                            k++;
+                        }
+
+                    }
+
+                    double helpStart = 0;
+
+                    for (int h = 0; h < 8; h++)
+                    {
+
+                        helpStart = helpStart + helpResult[0, h];
+
+                    }
+
+                    helpStart = 1 / (1 + helpStart);
+
+                        tmpResult[i, 0] = helpStart;
+                       
+                        for (int z = 1; z < 9; z++)
+                        {
+                         tmpResult[i, z] = helpStart* helpResult[0, z];
+                           
+                        }
+
+
+                }
+            
+              
+            }
+
+          
 
 
 
@@ -406,6 +500,45 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             }
 
             return result;
+        }
+
+        private void uploadToFile(string fileName)
+        {
+            Microsoft.Office.Interop.Excel.Application ObjExcel = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel.Workbook ObjWorkBook;
+            Microsoft.Office.Interop.Excel.Worksheet ObjWorkSheet;
+            ObjWorkBook = ObjExcel.Workbooks.Add(System.Reflection.Missing.Value);
+            ObjWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)ObjWorkBook.Sheets[1];
+
+            //Значения [y - строка,x - столбец]
+
+            for (int i = 2; i <= col + 1; i++)
+            {
+                ObjWorkSheet.Cells[1, i] = arrCountry[i - 2];
+            }
+
+            int tmp = 0;
+
+            for (int j = 2; j <= result[0].Count + 1; j++)
+            {
+                tmp = j >= arrYears.Length ? ++tmp : arrYears[j - 2];
+                ObjWorkSheet.Cells[j, 1] = tmp;
+            }
+
+            for (int j = 0; j < result.Count; j++)
+            {
+                for (int i = 0; i < result[j].Count; i++)
+                {
+                    ObjWorkSheet.Cells[i + 2, j + 2] = result[j][i];
+                }
+            }
+
+
+            ObjWorkBook.SaveAs(fileName);
+
+
+            ObjExcel.Visible = true;
+            ObjExcel.UserControl = true;
         }
 
         private static void releaseObject(object obj)
@@ -434,9 +567,11 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 return;
             }
 
-            
+            int period = int.Parse(periodToolStripComboBox.SelectedText);
 
-            SolutionForm sf = new SolutionForm(arrCountry, arrYears, LogisticPorabalisticChain());
+            result = LogisticPorabalisticChain(period);
+
+            SolutionForm sf = new SolutionForm(arrCountry, arrYears, result);
 
             sf.MdiParent = this;
             sf.Show();
@@ -465,10 +600,34 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 return;
             }
 
-            SolutionForm sf = new SolutionForm(arrCountry, arrYears, LinearLogariphmicPorabalisticChain());
+            result = LinearLogariphmicPorabalisticChain();
+
+            SolutionForm sf = new SolutionForm(arrCountry, arrYears, result);
 
             sf.MdiParent = this;
             sf.Show();
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfg = new SaveFileDialog();
+            sfg.DefaultExt = ".xls";
+            sfg.Filter = "Excel|*.xls|Excel(.xlsx)|*.xlsx";
+
+            if (result.Count>0&&result[0].Count>0)
+            {
+                if (sfg.ShowDialog()== DialogResult.OK)
+                {
+                    uploadToFile(sfg.FileName);
+                }
+               
+            }
+            
+        }
+
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
