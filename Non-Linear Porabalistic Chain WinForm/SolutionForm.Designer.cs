@@ -46,6 +46,8 @@
             this.chart1.Size = new System.Drawing.Size(1055, 629);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
+            this.chart1.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chart1_AxisViewChanged);
+            this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // SolutionForm
             // 

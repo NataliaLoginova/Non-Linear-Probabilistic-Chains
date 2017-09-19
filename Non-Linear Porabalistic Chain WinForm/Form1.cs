@@ -67,14 +67,34 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 }
             }
 
+            countryStripComboBox.Items.AddRange(arrCountry);
+            countryStripComboBox.SelectedIndex = 0;
+
+
             workbook.Close(true, null, null);
             app.Quit();
             releaseObject(app);
         }
 
-        private List<List<double>> LogisticPorabalisticChain(int period)
+        private List<List<double>> LogisticPorabalisticChain(int period=0, int standart=0)
         {
             List<List<double>> result = new List<List<double>>();
+
+            if (standart != 0)
+            {
+                //double[] t = new double[row];
+
+                double t;
+
+                for (int k = 0; k < row; k++)
+                {
+                    t = initialData[k, 0];
+                    initialData[k, 0] = initialData[k, standart];
+                    initialData[k, standart] = t;
+                }
+
+            }
+
 
             //Вспомогательный массив для дальнейшего нахождения вероятностных цепочек
             double[] sum = new double[row];
@@ -267,10 +287,25 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             return result;
         }
 
-        private List<List<double>> LinearLogariphmicPorabalisticChain()
+        private List<List<double>> LinearLogariphmicPorabalisticChain(int period=0, int standart=0)
         {
             List<List<double>> result = new List<List<double>>();
             List<double> tmp;
+
+            if (standart != 0)
+            {
+                //double[] t = new double[row];
+
+                double r;
+
+                for (int c = 0; c < row; c++)
+                {
+                    r = initialData[c, 0];
+                    initialData[c, 0] = initialData[c, standart];
+                    initialData[c, standart] = r;
+                }
+
+            }
 
             //Вспомогательный массив для дальнейшего нахождения вероятностных цепочек
             double[] sum = new double[row];
@@ -392,7 +427,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             {
                 startValue[0, j] = Math.Exp(arrA[0, j]);
                 k = 0;
-                for (int i = 1; i < 9; i++)
+                for (int i = 1; i < arrResult.RowCount; i++)
                 {
                     startValue[0, j] = startValue[0, j] * Math.Pow(arrPi[0,k], arrA[i, j]);
                     k++;
@@ -402,7 +437,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
             double sumStart = 0;
 
-            for (int h = 0; h < 7; h++)
+            for (int h = 0; h < arrResult.ColumnCount; h++)
             {
 
                 sumStart = sumStart + startValue[0, h];
@@ -412,11 +447,11 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             sumStart = 1 / (1 + sumStart);
 
 
-            double[,] tmpResult = new double[row, col];
+            double[,] tmpResult = new double[row + period, col];
             double[,] helpResult = new double[1, col];
 
 
-            for (int i = 0; i < row; i++)
+            for (int i = 0; i < row+ period; i++)
             {
                 if (i == 0)
                 {
@@ -443,12 +478,14 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 else
                 {
 
+
+
                     for (int j = 0; j < col-1; j++)
                     {
                        helpResult[0, j] = Math.Exp(arrA[0, j]);
                         k = 0;
 
-                        for (int z = 1; z < 9; z++)
+                        for (int z = 1; z < arrResult.RowCount; z++)
                         {
                             helpResult[0, j] = helpResult[0, j] * Math.Pow(tmpResult[i-1, k], arrA[z, j]);
                             k++;
@@ -458,7 +495,7 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
                     double helpStart = 0;
 
-                    for (int h = 0; h < 8; h++)
+                    for (int h = 0; h < col; h++)
                     {
 
                         helpStart = helpStart + helpResult[0, h];
@@ -467,37 +504,31 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
                     helpStart = 1 / (1 + helpStart);
 
-                        tmpResult[i, 0] = helpStart;
-                       
-                        for (int z = 1; z < 9; z++)
+                    tmpResult[i, 0] = helpStart;
+                    int q = 0;
+
+                    for (int z = 1; z < col; z++)
                         {
-                         tmpResult[i, z] = helpStart* helpResult[0, z];
-                           
+                         tmpResult[i, z] = helpStart* helpResult[0, q];
+                        q++;
                         }
-
-
                 }
             
-              
             }
 
-          
-
-
-
-            for (int i = 0; i < arrResult.RowCount; i++)
+             
+            for (int j = 0; j < col; j++)
             {
                 tmp = new List<double>();
-
-                for (int j = 0; j < arrResult.ColumnCount; j++)
+                for (int i = 0; i < row + period; i++)
                 {
                     tmp.Add(tmpResult[i, j]);
-
                 }
-
                 result.Add(tmp);
-
+               
             }
+
+
 
             return result;
         }
@@ -509,8 +540,6 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
             Microsoft.Office.Interop.Excel.Worksheet ObjWorkSheet;
             ObjWorkBook = ObjExcel.Workbooks.Add(System.Reflection.Missing.Value);
             ObjWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)ObjWorkBook.Sheets[1];
-
-            //Значения [y - строка,x - столбец]
 
             for (int i = 2; i <= col + 1; i++)
             {
@@ -567,9 +596,17 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 return;
             }
 
+            periodToolStripComboBox.Focus();
             int period = int.Parse(periodToolStripComboBox.SelectedText);
 
-            result = LogisticPorabalisticChain(period);
+            result = LogisticPorabalisticChain(period,countryStripComboBox.SelectedIndex);
+
+
+            int numberCountry= countryStripComboBox.SelectedIndex;
+
+            string t = arrCountry[0];
+            arrCountry[0] = arrCountry[numberCountry];
+            arrCountry[numberCountry] = t;
 
             SolutionForm sf = new SolutionForm(arrCountry, arrYears, result);
 
@@ -599,8 +636,16 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
                 MessageBox.Show("Empty excel");
                 return;
             }
+            periodToolStripComboBox.Focus();
+            int period = int.Parse(periodToolStripComboBox.SelectedText);
 
-            result = LinearLogariphmicPorabalisticChain();
+            result = LinearLogariphmicPorabalisticChain(period);
+
+            int numberCountry = countryStripComboBox.SelectedIndex;
+
+            string t = arrCountry[0];
+            arrCountry[0] = arrCountry[numberCountry];
+            arrCountry[numberCountry] = t;
 
             SolutionForm sf = new SolutionForm(arrCountry, arrYears, result);
 

@@ -63,5 +63,16 @@ namespace Non_Linear_Porabalistic_Chain_WinForm
 
             }
        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chart1_AxisViewChanged(object sender, ViewEventArgs e)
+        {
+            chart1.ChartAreas[0].RecalculateAxesScale();
+        }
+        
     }
 }
